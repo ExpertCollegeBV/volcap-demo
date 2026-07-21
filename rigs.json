@@ -1,0 +1,20 @@
+[
+  {
+    "id": "R1",
+    "label": "R1 — 12 shell (3 tiers) + 3 ROI = 15 cams",
+    "clip": "packs/R1/scene.json",
+    "note": "recommended build · masked 25.9 / 27.4 dB"
+  },
+  {
+    "id": "R2",
+    "label": "R2 — 24 shell (3 tiers) + 3 ROI = 27 cams",
+    "clip": "packs/R2/scene.json",
+    "note": "upper bound · masked 26.7 / 28.4 dB"
+  },
+  {
+    "id": "R3",
+    "label": "R3 — 8 shell (mid tier) + 2 ROI = 10 cams",
+    "clip": "packs/R3/scene.json",
+    "note": "current-hardware floor · masked 24.3 / 26.4 dB"
+  }
+]
