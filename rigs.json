@@ -16,5 +16,17 @@
     "label": "R3 — 8 shell (mid tier) + 2 ROI = 10 cams",
     "clip": "packs/R3/scene.json",
     "note": "current-hardware floor · masked 24.3 / 26.4 dB"
+  },
+  {
+    "id": "dahengGS",
+    "label": "Daheng spec — global-shutter ROI baseline",
+    "clip": "packs/dahengGS/scene.json",
+    "note": "27 cams, real sensor formats · masked 26.5 / 28.0 dB"
+  },
+  {
+    "id": "dahengRS",
+    "label": "Daheng spec — rolling-shutter ROI (as owned)",
+    "clip": "packs/dahengRS/scene.json",
+    "note": "RS cost vs baseline: +0.02 / +0.09 dB = zero · masked 26.5 / 28.1 dB"
   }
 ]
