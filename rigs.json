@@ -28,5 +28,11 @@
     "label": "Daheng spec — rolling-shutter ROI (as owned)",
     "clip": "packs/dahengRS/scene.json",
     "note": "RS cost vs baseline: +0.02 / +0.09 dB = zero · masked 26.5 / 28.1 dB"
+  },
+  {
+    "id": "R4",
+    "label": "R4 — artist's original 48-camera array",
+    "clip": "packs/R4/scene.json",
+    "note": "comparison only: loses to R1's 15 cams on motion · masked 26.3 / 26.5 dB"
   }
 ]
