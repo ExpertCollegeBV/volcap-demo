@@ -1,24 +1,46 @@
 [
   {
     "id": "baseline",
-    "label": "Baseline fit",
-    "clip": "packs/ABOFF/scene.json",
-    "note": "trained on black-fill cutouts \u2014 dark/thin regions go translucent at many frames",
+    "label": "12 cams \u2014 baseline",
+    "clip": "packs/c12_base/scene.json",
     "up": [
       0,
       -1,
       0
-    ]
+    ],
+    "note": "black-fill training: player goes see-through on 114/120 frames"
   },
   {
     "id": "alphafix",
-    "label": "Alpha-fix fit",
-    "clip": "packs/ABON/scene.json",
-    "note": "random training background + matte supervision \u2014 same data, opaque subject",
+    "label": "12 cams \u2014 alpha-fix",
+    "clip": "packs/c12_fix/scene.json",
     "up": [
       0,
       -1,
       0
-    ]
+    ],
+    "note": "random bg + matte supervision: opaque on 119/120 frames"
+  },
+  {
+    "id": "c24base",
+    "label": "24 cams \u2014 baseline",
+    "clip": "packs/c24_base/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "doubling cameras barely helps opacity (100/120 frames still see-through)"
+  },
+  {
+    "id": "c24fix",
+    "label": "24 cams \u2014 alpha-fix",
+    "clip": "packs/c24_fix/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "fix + cameras: sharpest and opaque \u2014 count buys sharpness, fix buys solidity"
   }
 ]
