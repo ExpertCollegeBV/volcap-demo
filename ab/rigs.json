@@ -3,12 +3,22 @@
     "id": "baseline",
     "label": "Baseline fit",
     "clip": "packs/ABOFF/scene.json",
-    "note": "trained on black-fill cutouts \u2014 dark/thin regions go translucent at many frames"
+    "note": "trained on black-fill cutouts \u2014 dark/thin regions go translucent at many frames",
+    "up": [
+      0,
+      -1,
+      0
+    ]
   },
   {
     "id": "alphafix",
     "label": "Alpha-fix fit",
     "clip": "packs/ABON/scene.json",
-    "note": "random training background + matte supervision \u2014 same data, opaque subject"
+    "note": "random training background + matte supervision \u2014 same data, opaque subject",
+    "up": [
+      0,
+      -1,
+      0
+    ]
   }
 ]
