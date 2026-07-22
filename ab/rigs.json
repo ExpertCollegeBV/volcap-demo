@@ -42,5 +42,16 @@
       0
     ],
     "note": "fix + cameras: sharpest and opaque \u2014 count buys sharpness, fix buys solidity"
+  },
+  {
+    "id": "show4k_c12",
+    "label": "SHOW 4K-trained \u2014 12 cams",
+    "clip": "packs/show4k_c12/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "4K Studios Show Pair, native 3840x2160 supervision, alpha-fix on (default)"
   }
 ]
