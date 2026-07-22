@@ -53,5 +53,16 @@
       0
     ],
     "note": "4K Studios Show Pair, native 3840x2160 supervision, alpha-fix on (default)"
+  },
+  {
+    "id": "show1080_c12",
+    "label": "SHOW 1080p-trained \u2014 12 cams",
+    "clip": "packs/show1080_c12/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "same frames/cams as the 4K arm, x2-downsampled supervision \u2014 the resolution A/B"
   }
 ]
