@@ -97,5 +97,27 @@
       0
     ],
     "note": "densify threshold /4 (resolution-scaled): +1.1 dB over the 1080p twin on the matched grid \u2014 2.5M splats"
+  },
+  {
+    "id": "show1080_c24_aggr",
+    "label": "SHOW 1080p \u2014 24 cams \u2014 AGGRESSIVE densifier",
+    "clip": "packs/show1080_c24_aggr/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "the attribution control: matches tuned-4K PSNR (26.86) at BETTER LPIPS (0.124) \u2014 capacity, not resolution"
+  },
+  {
+    "id": "show1080_c12_aggr",
+    "label": "SHOW 1080p \u2014 12 cams \u2014 AGGRESSIVE densifier",
+    "clip": "packs/show1080_c12_aggr/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "12 cams + capacity beats fixed-recipe 24 cams (26.86 vs 26.69 person-only)"
   }
 ]
