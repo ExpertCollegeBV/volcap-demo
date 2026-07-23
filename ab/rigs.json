@@ -119,5 +119,27 @@
       0
     ],
     "note": "12 cams + capacity beats fixed-recipe 24 cams (26.86 vs 26.69 person-only)"
+  },
+  {
+    "id": "show4k_c92",
+    "label": "SHOW 4K-trained \u2014 ALL 92 cams",
+    "clip": "packs/show4k_c92/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "the full arc at native 4K \u2014 count saturates: no better than 24 cams"
+  },
+  {
+    "id": "show1080_c92",
+    "label": "SHOW 1080p-trained \u2014 ALL 92 cams",
+    "clip": "packs/show1080_c92/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "92-cam 1080p twin \u2014 statistically tied with the 24-cam cell"
   }
 ]
