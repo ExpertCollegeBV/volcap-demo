@@ -75,5 +75,16 @@
       0
     ],
     "note": "native 4K supervision, 24-cam nested ring, alpha-fix on"
+  },
+  {
+    "id": "show1080_c24",
+    "label": "SHOW 1080p-trained \u2014 24 cams",
+    "clip": "packs/show1080_c24/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "x2-downsampled supervision twin of the 24-cam 4K arm"
   }
 ]
