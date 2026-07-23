@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>VOLCAP • P8 rig comparison</title>
   <style>
     * { box-sizing: border-box; }
     html, body { margin: 0; height: 100%; background: #14161a; color: #e6e6e6;
       font: 13px/1.4 system-ui, sans-serif; overflow: hidden; }
-    #cv { display: block; position: fixed; inset: 0; width: 100vw; height: 100vh; }
+    /* touch-action none: the canvas owns ALL touch gestures (orbit/pinch);
+       without it mobile browsers pan/zoom the PAGE instead of the camera */
+    #cv { display: block; position: fixed; inset: 0; width: 100vw; height: 100vh; touch-action: none; }
     #hud { position: fixed; top: 10px; left: 12px; z-index: 10; white-space: pre;
       background: rgba(0,0,0,.45); padding: 8px 10px; border-radius: 6px;
       font-variant-numeric: tabular-nums; pointer-events: none; }
