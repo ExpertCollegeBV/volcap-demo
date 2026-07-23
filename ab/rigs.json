@@ -86,5 +86,16 @@
       0
     ],
     "note": "x2-downsampled supervision twin of the 24-cam 4K arm"
+  },
+  {
+    "id": "show4k_c24_tuned",
+    "label": "SHOW 4K \u2014 24 cams \u2014 TUNED densifier",
+    "clip": "packs/show4k_c24_tuned/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "densify threshold /4 (resolution-scaled): +1.1 dB over the 1080p twin on the matched grid \u2014 2.5M splats"
   }
 ]
