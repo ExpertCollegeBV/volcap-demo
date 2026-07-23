@@ -64,5 +64,16 @@
       0
     ],
     "note": "same frames/cams as the 4K arm, x2-downsampled supervision \u2014 the resolution A/B"
+  },
+  {
+    "id": "show4k_c24",
+    "label": "SHOW 4K-trained \u2014 24 cams",
+    "clip": "packs/show4k_c24/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "native 4K supervision, 24-cam nested ring, alpha-fix on"
   }
 ]
