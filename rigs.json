@@ -40,5 +40,11 @@
     "label": "R1 + alpha-fix recipe (production)",
     "clip": "packs/R1af/scene.json",
     "note": "same 15 cams, ADR-018 recipe: +0.5 dB both persons · masked 26.4 / 27.9 dB"
+  },
+  {
+    "id": "dahengRSaf",
+    "label": "Daheng RS + alpha-fix (the build, production recipe)",
+    "clip": "packs/dahengRSaf/scene.json",
+    "note": "your hardware, final recipe · masked 26.7 / 28.3 dB"
   }
 ]
