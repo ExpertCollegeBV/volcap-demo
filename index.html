@@ -26,6 +26,8 @@
       background: rgba(0,0,0,.45); padding: 8px 10px; border-radius: 6px; }
     #play { width: 40px; background: none; color: #e6e6e6; border: 1px solid #555;
       border-radius: 5px; padding: 4px; cursor: pointer; font: inherit; }
+    #bgbtn { min-width: 70px; background: none; color: #e6e6e6; border: 1px solid #555;
+      border-radius: 5px; padding: 4px 8px; cursor: pointer; font: inherit; }
     #scrub { flex: 1; }
     #err { position: fixed; bottom: 56px; left: 12px; right: 12px; z-index: 10;
       color: #ff8080; white-space: pre-wrap; max-height: 40vh; overflow: auto; }
@@ -37,6 +39,7 @@
   <div id="rigs"></div>
   <div id="bar">
     <button id="play">❚❚</button>
+    <button id="bgbtn" hidden>room ✓</button>
     <input id="scrub" type="range" min="0" max="119" value="0" step="1" />
   </div>
   <div id="err"></div>
