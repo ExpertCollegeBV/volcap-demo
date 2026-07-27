@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>VOLCAP • streaming clip (M8)</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: #14161a; color: #e6e6e6;
+      font: 13px/1.4 system-ui, sans-serif; overflow: hidden; }
+    #cv { display: block; position: fixed; inset: 0; width: 100vw; height: 100vh; touch-action: none; }
+    #bar { position: fixed; bottom: 10px; left: 12px; right: 12px; z-index: 10;
+      display: flex; gap: 10px; align-items: center;
+      background: rgba(0,0,0,.45); padding: 8px 10px; border-radius: 6px; }
+    #play { width: 40px; background: none; color: #e6e6e6; border: 1px solid #555;
+      border-radius: 5px; padding: 4px; cursor: pointer; font: inherit; }
+    #scrub { flex: 1; }
+    #hud { position: fixed; top: 10px; left: 12px; z-index: 10; white-space: pre;
+      background: rgba(0,0,0,.45); padding: 8px 10px; border-radius: 6px;
+      font-variant-numeric: tabular-nums; pointer-events: none; }
+    #err { position: fixed; bottom: 10px; left: 12px; right: 12px; z-index: 10;
+      color: #ff8080; white-space: pre-wrap; max-height: 40vh; overflow: auto; }
+  </style>
+</head>
+<body>
+  <canvas id="cv"></canvas>
+  <div id="hud">booting…</div>
+  <div id="bar">
+    <button id="play">❚❚</button>
+    <input id="scrub" type="range" min="0" max="335" value="0" step="1" />
+  </div>
+  <div id="err"></div>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../vendor/three.module.min.js",
+        "three/addons/": "../vendor/three-addons/",
+        "@sparkjsdev/spark": "../vendor/spark.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="./src/stream_main.js"></script>
+</body>
+</html>

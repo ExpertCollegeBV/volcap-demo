@@ -1,0 +1,57 @@
+[
+  {
+    "id": "R1",
+    "label": "R1 \u00e2\u20ac\u201d 12 shell (3 tiers) + 3 ROI = 15 cams",
+    "clip": "packs/R1/scene.json",
+    "note": "recommended build \u00c2\u00b7 masked 25.9 / 27.4 dB"
+  },
+  {
+    "id": "R2",
+    "label": "R2 \u00e2\u20ac\u201d 24 shell (3 tiers) + 3 ROI = 27 cams",
+    "clip": "packs/R2/scene.json",
+    "note": "upper bound \u00c2\u00b7 masked 26.7 / 28.4 dB"
+  },
+  {
+    "id": "R3",
+    "label": "R3 \u00e2\u20ac\u201d 8 shell (mid tier) + 2 ROI = 10 cams",
+    "clip": "packs/R3/scene.json",
+    "note": "current-hardware floor \u00c2\u00b7 masked 24.3 / 26.4 dB"
+  },
+  {
+    "id": "dahengGS",
+    "label": "Daheng spec \u00e2\u20ac\u201d global-shutter ROI baseline",
+    "clip": "packs/dahengGS/scene.json",
+    "note": "27 cams, real sensor formats \u00c2\u00b7 masked 26.5 / 28.0 dB"
+  },
+  {
+    "id": "dahengRS",
+    "label": "Daheng spec \u00e2\u20ac\u201d rolling-shutter ROI (as owned)",
+    "clip": "packs/dahengRS/scene.json",
+    "note": "RS cost vs baseline: +0.02 / +0.09 dB = zero \u00c2\u00b7 masked 26.5 / 28.1 dB"
+  },
+  {
+    "id": "R4",
+    "label": "R4 \u00e2\u20ac\u201d artist's original 48-camera array",
+    "clip": "packs/R4/scene.json",
+    "note": "comparison only: loses to R1's 15 cams on motion \u00c2\u00b7 masked 26.3 / 26.5 dB"
+  },
+  {
+    "id": "R1af",
+    "label": "R1 + alpha-fix recipe (production)",
+    "clip": "packs/R1af/scene.json",
+    "note": "same 15 cams, ADR-018 recipe: +0.5 dB both persons \u00c2\u00b7 masked 26.4 / 27.9 dB"
+  },
+  {
+    "id": "dahengRSaf",
+    "label": "Daheng RS + alpha-fix (the build, production recipe)",
+    "clip": "packs/dahengRSaf/scene.json",
+    "note": "your hardware, final recipe \u00c2\u00b7 masked 26.7 / 28.3 dB"
+  },
+  {
+    "id": "R1prod",
+    "label": "R1 + PRODUCTION recipe (alpha-fix + capacity densifier)",
+    "clip": "packs/R1prod/scene.json",
+    "note": "ADR-020 shipped defaults: /4 threshold + 2.5M cap \u00b7 masked 26.8 / 27.6 dB (+0.4/+0.5 over R1af) \u00b7 flicker 0.96/0.64",
+    "clip_lite": "packs/R1prod/scene_lite.json"
+  }
+]

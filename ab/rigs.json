@@ -1,0 +1,148 @@
+[
+  {
+    "id": "baseline",
+    "label": "12 cams  --  baseline",
+    "clip": "packs/c12_base/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "black-fill training: player goes see-through on 114/120 frames"
+  },
+  {
+    "id": "alphafix",
+    "label": "12 cams  --  alpha-fix",
+    "clip": "packs/c12_fix/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "random bg + matte supervision: opaque on 119/120 frames"
+  },
+  {
+    "id": "c24base",
+    "label": "24 cams  --  baseline",
+    "clip": "packs/c24_base/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "doubling cameras barely helps opacity (100/120 frames still see-through)"
+  },
+  {
+    "id": "c24fix",
+    "label": "24 cams  --  alpha-fix",
+    "clip": "packs/c24_fix/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "fix + cameras: sharpest and opaque  --  count buys sharpness, fix buys solidity"
+  },
+  {
+    "id": "show4k_c12",
+    "label": "SHOW 4K-trained  --  12 cams",
+    "clip": "packs/show4k_c12/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "4K Studios Show Pair, native 3840x2160 supervision, alpha-fix on (default)"
+  },
+  {
+    "id": "show1080_c12",
+    "label": "SHOW 1080p-trained  --  12 cams",
+    "clip": "packs/show1080_c12/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "same frames/cams as the 4K arm, x2-downsampled supervision  --  the resolution A/B"
+  },
+  {
+    "id": "show4k_c24",
+    "label": "SHOW 4K-trained  --  24 cams",
+    "clip": "packs/show4k_c24/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "native 4K supervision, 24-cam nested ring, alpha-fix on"
+  },
+  {
+    "id": "show1080_c24",
+    "label": "SHOW 1080p-trained  --  24 cams",
+    "clip": "packs/show1080_c24/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "x2-downsampled supervision twin of the 24-cam 4K arm"
+  },
+  {
+    "id": "show4k_c24_tuned",
+    "label": "SHOW 4K  --  24 cams  --  TUNED densifier",
+    "clip": "packs/show4k_c24_tuned/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "densify threshold /4 (resolution-scaled): +1.1 dB over the 1080p twin on the matched grid  --  but exactly TIED by the capacity-matched 1080p control: resolution verdict NULL (ADR-017 final)",
+    "clip_lite": "packs/show4k_c24_tuned/scene_lite.json"
+  },
+  {
+    "id": "show1080_c24_aggr",
+    "label": "SHOW 1080p  --  24 cams  --  AGGRESSIVE densifier",
+    "clip": "packs/show1080_c24_aggr/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "the attribution control: matches tuned-4K PSNR (26.86) at BETTER LPIPS  --  capacity, not resolution, is the lever. Recipe adopted as the ADR-020 production default (2026-07-24)",
+    "clip_lite": "packs/show1080_c24_aggr/scene_lite.json"
+  },
+  {
+    "id": "show1080_c12_aggr",
+    "label": "SHOW 1080p  --  12 cams  --  AGGRESSIVE densifier",
+    "clip": "packs/show1080_c12_aggr/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "12 cams + capacity beats fixed-recipe 24 cams (26.86 vs 26.69 person-only)  --  capacity substitutes for cameras beyond the knee (ADR-019/020)",
+    "clip_lite": "packs/show1080_c12_aggr/scene_lite.json"
+  },
+  {
+    "id": "show4k_c92",
+    "label": "SHOW 4K-trained  --  ALL 92 cams",
+    "clip": "packs/show4k_c92/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "the full arc at native 4K  --  count saturates: no better than 24 cams"
+  },
+  {
+    "id": "show1080_c92",
+    "label": "SHOW 1080p-trained  --  ALL 92 cams",
+    "clip": "packs/show1080_c92/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "92-cam 1080p twin  --  statistically tied with the 24-cam cell"
+  }
+]

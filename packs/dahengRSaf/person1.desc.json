@@ -1,0 +1,147 @@
+{
+  "name": "person1",
+  "file": "person1.vpk2",
+  "format": "vpk2",
+  "count": 160169,
+  "planes": [
+    {
+      "name": "pos_hi",
+      "codec": "webp-lossless",
+      "channels": 3,
+      "height": 79,
+      "offset": 0,
+      "bytes": 101984
+    },
+    {
+      "name": "pos_lo",
+      "codec": "webp-lossless",
+      "channels": 3,
+      "height": 79,
+      "offset": 101984,
+      "bytes": 477996
+    },
+    {
+      "name": "t_hi",
+      "codec": "webp-lossless",
+      "channels": 1,
+      "height": 79,
+      "offset": 579980,
+      "bytes": 102544
+    },
+    {
+      "name": "t_lo",
+      "codec": "webp-lossless",
+      "channels": 1,
+      "height": 79,
+      "offset": 682524,
+      "bytes": 160298
+    },
+    {
+      "name": "rotation_hi",
+      "codec": "webp-lossless",
+      "channels": 3,
+      "height": 79,
+      "offset": 842822,
+      "bytes": 335198
+    },
+    {
+      "name": "rotation_aux",
+      "codec": "webp-lossless",
+      "channels": 1,
+      "height": 79,
+      "offset": 1178020,
+      "bytes": 120514
+    },
+    {
+      "name": "rotation_r_hi",
+      "codec": "webp-lossless",
+      "channels": 3,
+      "height": 79,
+      "offset": 1298534,
+      "bytes": 336842
+    },
+    {
+      "name": "rotation_r_aux",
+      "codec": "webp-lossless",
+      "channels": 1,
+      "height": 79,
+      "offset": 1635376,
+      "bytes": 120528
+    },
+    {
+      "name": "scaling",
+      "codec": "webp-lossless",
+      "channels": 3,
+      "height": 79,
+      "offset": 1755904,
+      "bytes": 367664
+    },
+    {
+      "name": "scaling_t",
+      "codec": "webp-lossless",
+      "channels": 1,
+      "height": 79,
+      "offset": 2123568,
+      "bytes": 115828
+    },
+    {
+      "name": "opacity",
+      "codec": "webp-lossless",
+      "channels": 1,
+      "height": 79,
+      "offset": 2239396,
+      "bytes": 150528
+    },
+    {
+      "name": "sh0",
+      "codec": "webp-lossless",
+      "channels": 3,
+      "height": 79,
+      "offset": 2389924,
+      "bytes": 213126
+    }
+  ],
+  "source_planes": [
+    "xyz",
+    "t",
+    "rotation",
+    "rotation_r",
+    "scaling",
+    "scaling_t",
+    "opacity",
+    "sh0"
+  ],
+  "dequant": {
+    "xyz": {
+      "lo": [
+        -0.3844430446624756,
+        -1.0285515785217285,
+        0.0035946806892752647
+      ],
+      "hi": [
+        0.3110879361629486,
+        -0.05647113919258118,
+        1.6878490447998047
+      ]
+    },
+    "t": {
+      "lo": -2.869223117828369,
+      "hi": 11.659215927124023
+    },
+    "scaling": {
+      "lo": 1.0461031706654467e-05,
+      "hi": 0.12377776205539703
+    },
+    "scaling_t": {
+      "lo": 0.006679145619273186,
+      "hi": 2651.52880859375
+    }
+  },
+  "quat_error_bound": {
+    "p50": 0.0005860569175722834,
+    "p99": 0.002807548411850906,
+    "max": 0.009226511922696433
+  },
+  "source_ckpt": "/root/volcap/runs/diffuman_dahengRS/train-fg/dahengRSaf_p1/model/chkpnt30000.pth",
+  "source_run": "runs/diffuman_dahengRS/train-fg/dahengRSaf_p1"
+}
