@@ -1,0 +1,1 @@
+{"version": "vpkclip1", "fps": 30.0, "frame_count": 120, "span": 10.0, "chunks": [{"index": 0, "start_frame": 0, "end_frame": 120, "overlap_frames": 0, "scene": "chunks/c00/scene.json", "scene_lite": "chunks/c00/scene_lite.json"}], "up": [0, -1, 0]}

@@ -1,0 +1,272 @@
+{
+  "version": "vpk1",
+  "fps": 30.0,
+  "frame_count": 120,
+  "t_mapping": {
+    "span": 10.0,
+    "frame_count": 120
+  },
+  "buckets": null,
+  "extra": {
+    "compose_run": "runs/selfcap_bar/compose/20260801-044835",
+    "source_hashes": {
+      "person1": "e415b93451728aeb7e8641c627ae7843df26290b84bf1a90e285553b26cbafd7",
+      "bg": "129e0af6163fe7a76b1ce7a2fa1970b8b7e13375930ea8c57d025fc85ddfcb63"
+    },
+    "keep": {
+      "fg": 1.0,
+      "bg": 1.0
+    },
+    "seed": 1234,
+    "bg_crop": null,
+    "levers": {
+      "bg": {
+        "sh0_colors": 256,
+        "rot_bits": 6,
+        "pos_bits": 12,
+        "t_bits": null,
+        "scale_bits": 7,
+        "opacity_bits": 6
+      },
+      "persons": "transient_filter + keep 0.8"
+    }
+  },
+  "packs": [
+    {
+      "name": "person1",
+      "file": "person1.vpk2",
+      "format": "vpk2",
+      "count": 1383628,
+      "planes": [
+        {
+          "name": "pos_hi",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 676,
+          "offset": 0,
+          "bytes": 431636
+        },
+        {
+          "name": "pos_lo",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 676,
+          "offset": 431636,
+          "bytes": 4025748
+        },
+        {
+          "name": "t_hi",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 676,
+          "offset": 4457384,
+          "bytes": 323302
+        },
+        {
+          "name": "t_lo",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 676,
+          "offset": 4780686,
+          "bytes": 1290314
+        },
+        {
+          "name": "rotation_hi",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 676,
+          "offset": 6071000,
+          "bytes": 3196954
+        },
+        {
+          "name": "rotation_aux",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 676,
+          "offset": 9267954,
+          "bytes": 1044816
+        },
+        {
+          "name": "rotation_r_hi",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 676,
+          "offset": 10312770,
+          "bytes": 3202738
+        },
+        {
+          "name": "rotation_r_aux",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 676,
+          "offset": 13515508,
+          "bytes": 1045410
+        },
+        {
+          "name": "scaling",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 676,
+          "offset": 14560918,
+          "bytes": 3093972
+        },
+        {
+          "name": "scaling_t",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 676,
+          "offset": 17654890,
+          "bytes": 945146
+        },
+        {
+          "name": "opacity",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 676,
+          "offset": 18600036,
+          "bytes": 965550
+        },
+        {
+          "name": "sh0",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 676,
+          "offset": 19565586,
+          "bytes": 3315248
+        }
+      ],
+      "source_planes": [
+        "xyz",
+        "t",
+        "rotation",
+        "rotation_r",
+        "scaling",
+        "scaling_t",
+        "opacity",
+        "sh0"
+      ],
+      "dequant": {
+        "xyz": {
+          "lo": [
+            0.12861603498458862,
+            -0.7632949948310852,
+            4.2193732261657715
+          ],
+          "hi": [
+            1.704101324081421,
+            2.997117280960083,
+            5.833169937133789
+          ]
+        },
+        "t": {
+          "lo": -281.5782470703125,
+          "hi": 27.9163761138916
+        },
+        "scaling": {
+          "lo": 3.4923264280450894e-08,
+          "hi": 0.09846381843090057
+        },
+        "scaling_t": {
+          "lo": 0.0013296467950567603,
+          "hi": 7872.2548828125
+        }
+      },
+      "quat_error_bound": {
+        "p50": 0.00031816373339298013,
+        "p99": 0.0026058692076121287,
+        "max": 0.03797393137072721
+      }
+    },
+    {
+      "name": "bg",
+      "file": "bg.vpk2",
+      "format": "vpk2",
+      "count": 1347967,
+      "planes": [
+        {
+          "name": "pos_hi",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 659,
+          "offset": 0,
+          "bytes": 555072
+        },
+        {
+          "name": "pos_lo",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 659,
+          "offset": 555072,
+          "bytes": 2023092
+        },
+        {
+          "name": "rotation_hi",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 659,
+          "offset": 2578164,
+          "bytes": 2825092
+        },
+        {
+          "name": "rotation_aux",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 659,
+          "offset": 5403256,
+          "bytes": 83710
+        },
+        {
+          "name": "scaling",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 659,
+          "offset": 5486966,
+          "bytes": 2704122
+        },
+        {
+          "name": "opacity",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 659,
+          "offset": 8191088,
+          "bytes": 894954
+        },
+        {
+          "name": "sh0_labels",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 659,
+          "offset": 9086042,
+          "bytes": 1073284
+        }
+      ],
+      "source_planes": [
+        "xyz",
+        "rotation",
+        "scaling",
+        "opacity",
+        "sh0"
+      ],
+      "dequant": {
+        "xyz": {
+          "lo": [
+            -5.514377117156982,
+            -4.13546085357666,
+            1.8387901782989502
+          ],
+          "hi": [
+            7.307642936706543,
+            3.589733123779297,
+            9.989053726196289
+          ]
+        },
+        "scaling": {
+          "lo": 5.739810404747914e-09,
+          "hi": 3.0951361656188965
+        }
+      },
+      "sh0_palette_colors": 256,
+      "source_ckpt": "runs/selfcap_bar_plates/train-bg/20260801-043558/ckpts/ckpt_030000.pt"
+    }
+  ]
+}
