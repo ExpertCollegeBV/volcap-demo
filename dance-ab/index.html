@@ -1,0 +1,20 @@
+<title>dance — sync & framerate comparison</title>
+<style>
+  body { background: #14161a; color: #e6e6e6; font: 15px/1.6 system-ui, sans-serif;
+         max-width: 720px; margin: 3rem auto; padding: 0 1rem; }
+  h1 { font-size: 1.4rem; } a { color: #7ab8ff; }
+  table { border-collapse: collapse; margin-top: 1rem; }
+  td, th { padding: .35rem 1.2rem .35rem 0; border-bottom: 1px solid #333; text-align: left; }
+  td.num { font-variant-numeric: tabular-nums; }
+</style>
+<h1>dance — sync &amp; framerate experiment (2026-08-03)</h1>
+<p>Same performer, same window, same recipe, packed identically (keep 1.0, fg-only).
+   The only variable per page is the fit's supervision.</p>
+<table>
+<tr><th>arm</th><th>PSNR*</th><th>LPIPS</th><th></th></tr>
+<tr><td><a href="../dancebase/">baseline — no sync, 30 fps</a></td><td class="num">30.39 dB</td><td class="num">0.0505</td><td>soft on fast motion</td></tr>
+<tr><td><a href="../dancesync/">sync-corrected, 30 fps</a></td><td class="num">30.50 dB</td><td class="num">0.0509</td><td>faces recover; residual ghosting</td></tr>
+<tr><td><a href="../dance60/">60 fps + sync</a></td><td class="num">29.08 dB</td><td class="num">0.0303</td><td>largest perceptual gain</td></tr>
+</table>
+<p><small>*holdout mean excl. one camera whose reference matte was invalid in the 30 fps arms.
+   Findings context: <a href="../selfcap/">SelfCap program page</a>.</small></p>

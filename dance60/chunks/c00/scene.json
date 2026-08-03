@@ -1,0 +1,163 @@
+{
+  "version": "vpk1",
+  "fps": 60.0,
+  "frame_count": 240,
+  "t_mapping": {
+    "span": 10.0,
+    "frame_count": 240
+  },
+  "packs": [
+    {
+      "name": "person1",
+      "file": "person1.vpk2",
+      "format": "vpk2",
+      "count": 2594186,
+      "planes": [
+        {
+          "name": "pos_hi",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 1267,
+          "offset": 0,
+          "bytes": 365566
+        },
+        {
+          "name": "pos_lo",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 1267,
+          "offset": 365566,
+          "bytes": 7161820
+        },
+        {
+          "name": "t_hi",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 1267,
+          "offset": 7527386,
+          "bytes": 1020996
+        },
+        {
+          "name": "t_lo",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 1267,
+          "offset": 8548382,
+          "bytes": 2593286
+        },
+        {
+          "name": "rotation_hi",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 1267,
+          "offset": 11141668,
+          "bytes": 6245934
+        },
+        {
+          "name": "rotation_aux",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 1267,
+          "offset": 17387602,
+          "bytes": 2022772
+        },
+        {
+          "name": "rotation_r_hi",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 1267,
+          "offset": 19410374,
+          "bytes": 6279222
+        },
+        {
+          "name": "rotation_r_aux",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 1267,
+          "offset": 25689596,
+          "bytes": 2048464
+        },
+        {
+          "name": "scaling",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 1267,
+          "offset": 27738060,
+          "bytes": 5513052
+        },
+        {
+          "name": "scaling_t",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 1267,
+          "offset": 33251112,
+          "bytes": 1848944
+        },
+        {
+          "name": "opacity",
+          "codec": "webp-lossless",
+          "channels": 1,
+          "height": 1267,
+          "offset": 35100056,
+          "bytes": 1995910
+        },
+        {
+          "name": "sh0",
+          "codec": "webp-lossless",
+          "channels": 3,
+          "height": 1267,
+          "offset": 37095966,
+          "bytes": 5505090
+        }
+      ],
+      "source_planes": [
+        "xyz",
+        "t",
+        "rotation",
+        "rotation_r",
+        "scaling",
+        "scaling_t",
+        "opacity",
+        "sh0"
+      ],
+      "dequant": {
+        "xyz": {
+          "lo": [
+            -2.5656251907348633,
+            -1.461388111114502,
+            -5.063729286193848
+          ],
+          "hi": [
+            0.5175545811653137,
+            4.2215118408203125,
+            -1.2122482061386108
+          ]
+        },
+        "t": {
+          "lo": -2.3352088928222656,
+          "hi": 46.55513000488281
+        },
+        "scaling": {
+          "lo": 1.0240180695397783e-08,
+          "hi": 0.10628663557022877
+        },
+        "scaling_t": {
+          "lo": 0.0010124623076990247,
+          "hi": 368.3890686035156
+        }
+      },
+      "quat_error_bound": {
+        "p50": 0.0006490062468245324,
+        "p99": 0.007349451285567844,
+        "max": 0.08834197962143699
+      },
+      "source_ckpt": "/root/volcap/runs/selfcap_dance60/train-fg/sweep_c20/model/chkpnt30000.pth",
+      "source_run": "runs/selfcap_dance60/train-fg/sweep_c20"
+    }
+  ],
+  "buckets": null,
+  "extra": {
+    "variant": "p8_fg_only",
+    "arm": "dance60"
+  }
+}
