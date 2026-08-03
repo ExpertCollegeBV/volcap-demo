@@ -101,6 +101,18 @@ renderer.setPixelRatio(1);
 renderer.setSize(innerWidth, innerHeight, false);
 const spark = new SparkRenderer({ renderer });
 scene.add(spark);
+// ?st=1 -> Spark's stochastic transparency: order-INDEPENDENT splat rendering
+// (per-fragment hash accept, depth-written opaque fragments). No sorting, no
+// GPU->CPU readback — the whole sort-staleness artifact class (holes during
+// motion, wrap ghosting) is structurally absent, traded for temporal grain at
+// soft edges. Mitigation for slow-sorter devices until temporal sort-set
+// slicing lands; measured sorter throughput on an Iris Xe laptop was 3.3
+// sorts/s for a 1.4M-splat pack (~300 ms/pass readback+CPU sort).
+const stochastic = new URLSearchParams(location.search).get("st") === "1";
+if (stochastic && spark.defaultView) {
+  spark.defaultView.stochastic = true;
+  vc.stochastic = true;
+}
 
 function makeFloatTex(data, w, h) {
   const t = new THREE.DataTexture(data, w, h, THREE.RGBAFormat, THREE.FloatType);
@@ -350,7 +362,7 @@ async function main() {
       // per completed sort, floored at 5 fps so an idle sorter (static camera
       // heuristics, field unavailable) can never deadlock playback.
       const sortStamp = Number(spark.lastSortTime ?? 0) || 0;
-      const sorted = sortStamp !== vc._prevSortStamp;
+      const sorted = vc.stochastic ? true : sortStamp !== vc._prevSortStamp;
       if (sorted) {
         if (vc._prevSortStamp !== undefined && vc._sortT !== undefined) {
           const gap = now - vc._sortT;
@@ -421,7 +433,7 @@ async function main() {
       `resident ${vc.resident} (attached ${vc.attached ?? 0})  built ${vc.builtChunks}  lastLoad ${vc.lastLoadMs} ms\n` +
       `fps ${vc.fps}  jsHeap ${vc.memMB} MB  worstFrameGap ${Math.round(vc.worstFrameGapMs)} ms  ` +
       `tier ${vc.tier}${vc.benchMs ? ` (bench ${vc.benchMs}ms)` : ""}  ` +
-      `play ${vc.effFps ?? "-"}/${vc.clipFps ?? "?"} fps  frameEMA ${vc.emaDt ? Math.round(vc.emaDt) : "-"} ms  sorts ${vc.sortHz ?? "?"}/s`;
+      `play ${vc.effFps ?? "-"}/${vc.clipFps ?? "?"} fps  frameEMA ${vc.emaDt ? Math.round(vc.emaDt) : "-"} ms  sorts ${vc.sortHz ?? "?"}/s${vc.stochastic ? "  [stochastic]" : ""}`;
   });
 }
 main().catch((e) => fail("main", e));
