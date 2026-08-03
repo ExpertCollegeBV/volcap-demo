@@ -343,17 +343,32 @@ async function main() {
       // duration — the first version of this gate misread it and froze
       // playback at one frame per ~30 s.)
       vc.emaDt = vc.emaDt ? vc.emaDt * 0.9 + dt * 0.1 : dt;
+      // SORT-COMPLETION gate (2026-08-03, round 2: render-rate pacing was NOT
+      // enough — the async sorter takes several render frames per reorder of
+      // 1.4M splats, and holes persisted). lastSortTime is a TIMESTAMP; a
+      // change means a sort pass finished. Advance at most one content frame
+      // per completed sort, floored at 5 fps so an idle sorter (static camera
+      // heuristics, field unavailable) can never deadlock playback.
+      const sortStamp = Number(spark.lastSortTime ?? 0) || 0;
+      const sorted = sortStamp !== vc._prevSortStamp;
+      if (sorted) {
+        if (vc._prevSortStamp !== undefined && vc._sortT !== undefined) {
+          const gap = now - vc._sortT;
+          vc.sortHz = Math.round(10000 / Math.max(gap, 1)) / 10;
+        }
+        vc._prevSortStamp = sortStamp; vc._sortT = now;
+      }
       const step = Math.max(1000 / (vc.clipFps || 24), vc.emaDt);
       vc.effFps = Math.round(1000 / step);
       fAcc += dt;
-      while (fAcc >= step) {
-        fAcc -= step;
+      if (fAcc >= step && (sorted || fAcc >= 200)) {
+        fAcc = Math.min(fAcc - step, step);
         const next = (vc.frame + 1) % vc.frameCount;
         // buffering gate: never advance onto a frame whose covering chunk(s)
         // aren't GPU-ready — a free-running clock outruns the loader on slow
         // devices and the playhead then chases unbuilt chunks forever (black)
-        if (!coveringReady(next)) { fAcc = 0; break; }
-        vc.frame = next;
+        if (!coveringReady(next)) { fAcc = 0; }
+        else vc.frame = next;
       }
       if (scrub) scrub.value = String(vc.frame);
     }
@@ -406,7 +421,7 @@ async function main() {
       `resident ${vc.resident} (attached ${vc.attached ?? 0})  built ${vc.builtChunks}  lastLoad ${vc.lastLoadMs} ms\n` +
       `fps ${vc.fps}  jsHeap ${vc.memMB} MB  worstFrameGap ${Math.round(vc.worstFrameGapMs)} ms  ` +
       `tier ${vc.tier}${vc.benchMs ? ` (bench ${vc.benchMs}ms)` : ""}  ` +
-      `play ${vc.effFps ?? "-"}/${vc.clipFps ?? "?"} fps  frameEMA ${vc.emaDt ? Math.round(vc.emaDt) : "-"} ms`;
+      `play ${vc.effFps ?? "-"}/${vc.clipFps ?? "?"} fps  frameEMA ${vc.emaDt ? Math.round(vc.emaDt) : "-"} ms  sorts ${vc.sortHz ?? "?"}/s`;
   });
 }
 main().catch((e) => fail("main", e));
