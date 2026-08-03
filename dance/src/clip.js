@@ -9,7 +9,13 @@
 // clipUrl -> { fps, frame_count(global), span, chunks:[{index, start_frame,
 // end_frame, overlap_frames, frame_count(local), sceneUrl}] }
 export async function loadClip(clipUrl) {
-  const idx = await (await fetch(clipUrl)).json();
+  // cache: "no-cache" revalidates with the CDN — a 404 HTML page cached
+  // during a deploy-propagation window otherwise poisons the manifest until
+  // the browser cache expires (owner-hit 2026-08-03). Status-check before
+  // parsing so failures name the URL instead of "Unexpected token '<'".
+  const resp = await fetch(clipUrl, { cache: "no-cache" });
+  if (!resp.ok) throw new Error(`clip manifest HTTP ${resp.status} for ${clipUrl}`);
+  const idx = await resp.json();
   const base = clipUrl.slice(0, clipUrl.lastIndexOf("/") + 1);
 
   if (idx.version === "vpk1") {
