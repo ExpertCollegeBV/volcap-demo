@@ -238,12 +238,16 @@ async function main() {
   // absolutize: pack URLs derived from this string reach the worker, which
   // resolves relative URLs against ITS OWN /src/ base, not the page
   vc.clipUrl = new URL(
-    new URLSearchParams(location.search).get("clip") || "clip.json",
+    new URLSearchParams(location.search).get("clip") || "/runs/duo_walk/clip_fake/clip.json",
     location.href,
   ).href;
   hud.textContent = "loading clip…";
   try { clip = await loadClip(vc.clipUrl); } catch (e) { return fail("loadClip", e); }
   vc.frameCount = clip.frame_count; vc.chunks = clip.chunks.length; vc.span = clip.span;
+  // playback cadence comes from the CLIP, not a constant: the hardcoded 24
+  // played 30 fps scenes slow and 60 fps scenes at 2.5x slow motion
+  // (owner report 2026-08-03: "23-25 fps" was this constant, not the device)
+  vc.clipFps = Number(clip.fps) || 24;
 
   // camera framing: from a bounding box, honoring the clip's optional world-up
   let framed = false;
@@ -326,7 +330,17 @@ async function main() {
     if (warmed) vc.worstFrameGapMs = Math.max(vc.worstFrameGapMs, dt);
     warmed = true;
     if (vc.playing) {
-      fAcc += dt; const step = 1000 / 24;
+      // SORT-STALENESS gate (owner report 2026-08-03: black holes during
+      // playback that heal on pause = splats blended with a stale depth
+      // order). Never advance faster than the async sorter completes: the
+      // effective step stretches to cover the sorter's last measured pass
+      // (+25% headroom), so slow devices degrade to slower-but-correct
+      // playback instead of mis-sorted holes.
+      const sortMs = Number(spark.lastSortTime ?? spark.sorter?.lastSortTime ?? 0) || 0;
+      const step = Math.max(1000 / (vc.clipFps || 24), sortMs * 1.25);
+      vc.effFps = Math.round(1000 / step);
+      vc.sortMs = Math.round(sortMs * 10) / 10;
+      fAcc += dt;
       while (fAcc >= step) {
         fAcc -= step;
         const next = (vc.frame + 1) % vc.frameCount;
@@ -386,7 +400,8 @@ async function main() {
       `${vc.buffering ? "buffering…" : vc.playing ? "▶" : "❚❚"}\n` +
       `resident ${vc.resident} (attached ${vc.attached ?? 0})  built ${vc.builtChunks}  lastLoad ${vc.lastLoadMs} ms\n` +
       `fps ${vc.fps}  jsHeap ${vc.memMB} MB  worstFrameGap ${Math.round(vc.worstFrameGapMs)} ms  ` +
-      `tier ${vc.tier}${vc.benchMs ? ` (bench ${vc.benchMs}ms)` : ""}`;
+      `tier ${vc.tier}${vc.benchMs ? ` (bench ${vc.benchMs}ms)` : ""}  ` +
+      `play ${vc.effFps ?? "-"}/${vc.clipFps ?? "?"} fps  sort ${vc.sortMs ?? "-"} ms`;
   });
 }
 main().catch((e) => fail("main", e));
