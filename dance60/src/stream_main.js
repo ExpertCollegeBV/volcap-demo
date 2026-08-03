@@ -238,7 +238,11 @@ async function main() {
   // absolutize: pack URLs derived from this string reach the worker, which
   // resolves relative URLs against ITS OWN /src/ base, not the page
   vc.clipUrl = new URL(
-    new URLSearchParams(location.search).get("clip") || "/runs/duo_walk/clip_fake/clip.json",
+    // default is PAGE-RELATIVE: deployed pages ship clip.json beside
+    // index.html. The old dev-server absolute default (/runs/duo_walk/...)
+    // broke every deployed page when this file was synced over the page
+    // copies (2026-08-03). Dev use passes ?clip= explicitly.
+    new URLSearchParams(location.search).get("clip") || "clip.json",
     location.href,
   ).href;
   hud.textContent = "loading clip…";
