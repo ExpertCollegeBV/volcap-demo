@@ -334,16 +334,17 @@ async function main() {
     if (warmed) vc.worstFrameGapMs = Math.max(vc.worstFrameGapMs, dt);
     warmed = true;
     if (vc.playing) {
-      // SORT-STALENESS gate (owner report 2026-08-03: black holes during
-      // playback that heal on pause = splats blended with a stale depth
-      // order). Never advance faster than the async sorter completes: the
-      // effective step stretches to cover the sorter's last measured pass
-      // (+25% headroom), so slow devices degrade to slower-but-correct
-      // playback instead of mis-sorted holes.
-      const sortMs = Number(spark.lastSortTime ?? spark.sorter?.lastSortTime ?? 0) || 0;
-      const step = Math.max(1000 / (vc.clipFps || 24), sortMs * 1.25);
+      // ADAPTIVE cadence (owner report 2026-08-03: black holes during
+      // playback that heal on pause = stale depth sort). Content never
+      // advances faster than the renderer's own sustained frame time (EMA),
+      // which gives the async sorter at least one full render period per
+      // content step — slow devices get slower-but-correct playback instead
+      // of mis-sorted holes. (Spark's lastSortTime is a TIMESTAMP, not a
+      // duration — the first version of this gate misread it and froze
+      // playback at one frame per ~30 s.)
+      vc.emaDt = vc.emaDt ? vc.emaDt * 0.9 + dt * 0.1 : dt;
+      const step = Math.max(1000 / (vc.clipFps || 24), vc.emaDt);
       vc.effFps = Math.round(1000 / step);
-      vc.sortMs = Math.round(sortMs * 10) / 10;
       fAcc += dt;
       while (fAcc >= step) {
         fAcc -= step;
@@ -405,7 +406,7 @@ async function main() {
       `resident ${vc.resident} (attached ${vc.attached ?? 0})  built ${vc.builtChunks}  lastLoad ${vc.lastLoadMs} ms\n` +
       `fps ${vc.fps}  jsHeap ${vc.memMB} MB  worstFrameGap ${Math.round(vc.worstFrameGapMs)} ms  ` +
       `tier ${vc.tier}${vc.benchMs ? ` (bench ${vc.benchMs}ms)` : ""}  ` +
-      `play ${vc.effFps ?? "-"}/${vc.clipFps ?? "?"} fps  sort ${vc.sortMs ?? "-"} ms`;
+      `play ${vc.effFps ?? "-"}/${vc.clipFps ?? "?"} fps  frameEMA ${vc.emaDt ? Math.round(vc.emaDt) : "-"} ms`;
   });
 }
 main().catch((e) => fail("main", e));
