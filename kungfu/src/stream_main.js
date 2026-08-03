@@ -165,6 +165,82 @@ function attachStream(mesh, sl, timeDyno, chunkAlphaDyno) {
   mesh.updateGenerator();
 }
 
+// --- TEMPORAL SORT-SET SLICING (2026-08-03, owner-driven) ---------------
+// Spark's sort = GPU key render -> full GPU->CPU readback -> WASM CPU sort,
+// all LINEAR in attached splat count (vendor source, sortUpdate). Measured on
+// an Iris Xe laptop: 1.4M attached splats -> 3.3 sorts/s (~300 ms/pass) ->
+// stale-order holes during playback and a persistent ghost at the loop wrap.
+// Fix: split each person pack into ~WINDOW_FRAMES-frame temporal windows.
+// A splat is duplicated into every window its |dt|<=3*sigma_t support touches
+// (measured duplication ~1.6x); only the playhead's window (+ the next one,
+// crossfaded over CROSS_FRAMES at the boundary) is attached, so the sorter
+// handles ~1/8th the splats and completes per content frame. Duplicated
+// splats render twice only inside the boundary zone, at partition-of-unity
+// weights (same approximation as the M8 chunk-seam crossfade).
+// ?slice=0 disables (one window = whole chunk); ?win=N overrides the size.
+const SLICE_PARAM = new URLSearchParams(location.search).get("slice");
+const SLICING = SLICE_PARAM !== "0";
+const WINDOW_FRAMES = Math.max(4, Number(new URLSearchParams(location.search).get("win")) || 10);
+const CROSS_FRAMES = 3;
+
+function windowIndexLists(sl, chunkFrames, chunkSpan) {
+  const nWin = SLICING ? Math.max(1, Math.ceil(chunkFrames / WINDOW_FRAMES)) : 1;
+  if (nWin === 1) {
+    const all = new Uint32Array(sl.count);
+    for (let i = 0; i < sl.count; i++) all[i] = i;
+    return [all];
+  }
+  const winSpan = (chunkSpan * WINDOW_FRAMES) / chunkFrames;
+  const lists = Array.from({ length: nWin }, () => []);
+  for (let i = 0; i < sl.count; i++) {
+    const sig = Math.sqrt(Math.max(sl.sigT2[i], 1e-8));
+    const lo = sl.mut[i] - 3 * sig, hi = sl.mut[i] + 3 * sig;
+    let a = Math.max(0, Math.floor(lo / winSpan));
+    let b = Math.min(nWin - 1, Math.floor(hi / winSpan));
+    for (let w = a; w <= b; w++) lists[w].push(i);
+  }
+  return lists.map((l) => Uint32Array.from(l));
+}
+function subsetArrays(sl, idx) {
+  const n = idx.length;
+  const out = {
+    count: n,
+    center: new Float32Array(n * 3), scale: new Float32Array(n * 3),
+    quat: new Float32Array(n * 4), color: new Float32Array(n * 3),
+    opacity: new Float32Array(n), vel: new Float32Array(n * 3),
+    mut: new Float32Array(n), sigT2: new Float32Array(n),
+  };
+  for (let j = 0; j < n; j++) {
+    const i = idx[j];
+    out.center.set(sl.center.subarray(i * 3, i * 3 + 3), j * 3);
+    out.scale.set(sl.scale.subarray(i * 3, i * 3 + 3), j * 3);
+    out.quat.set(sl.quat.subarray(i * 4, i * 4 + 4), j * 4);
+    out.color.set(sl.color.subarray(i * 3, i * 3 + 3), j * 3);
+    out.opacity[j] = sl.opacity[i];
+    out.vel.set(sl.vel.subarray(i * 3, i * 3 + 3), j * 3);
+    out.mut[j] = sl.mut[i];
+    out.sigT2[j] = sl.sigT2[i];
+  }
+  return out;
+}
+// partition-of-unity weight of window k at chunk-local frame f (loop-aware)
+function windowWeight(k, f, nWin) {
+  if (nWin === 1) return 1;
+  const total = nWin * WINDOW_FRAMES;
+  const cur = Math.floor(f / WINDOW_FRAMES) % nWin;
+  const nxt = (cur + 1) % nWin;
+  const into = f - Math.floor(f / WINDOW_FRAMES) * WINDOW_FRAMES;
+  const untilNext = WINDOW_FRAMES - into;
+  if (untilNext <= CROSS_FRAMES) {
+    const u = (CROSS_FRAMES - untilNext + 1) / (CROSS_FRAMES + 1);
+    const wn = 0.5 * (1 - Math.cos(Math.PI * u));
+    if (k === cur) return 1 - wn;
+    if (k === nxt) return wn;
+    return 0;
+  }
+  return k === cur ? 1 : 0;
+}
+
 // Residency model (2026-07-26 rework after user-measured seam stalls):
 //   BUILD AHEAD  — decode/build the next 2 chunks while the current one plays.
 //   PARK         — built chunks stay OUT of the scene (no sort cost) until
@@ -193,17 +269,31 @@ async function loadChunk(chunk) {
     // fire ALL person decodes up front so the pool works them in parallel
     const jobs = persons.map((desc) => sliceInWorker("person", desc, base + desc.file));
     const agg = { fetchMs: 0, decodeMs: 0, sliceMs: 0, buildMs: 0 };
+    const chunkFrames = chunk.end_frame - chunk.start_frame;
     for (const job of jobs) {
       const { r: arrays, t } = await job;
       if (st.evicted) return; // playhead moved on while we loaded
       if (t) { agg.fetchMs += t.fetchMs; agg.decodeMs += t.decodeMs; agg.sliceMs += t.sliceMs; }
       const tb0 = performance.now();
-      const mesh = meshFromArrays(arrays);
-      await mesh.initialized;
-      attachStream(mesh, arrays, st.timeDyno, st.chunkAlphaDyno);
+      // temporal windows: N small meshes instead of one huge one, so the
+      // attach pass can hand the sorter only the playhead's neighborhood
+      const lists = windowIndexLists(arrays, chunkFrames, clip.span);
+      let dup = 0;
+      for (let k = 0; k < lists.length; k++) {
+        const sub = lists.length === 1 ? arrays : subsetArrays(arrays, lists[k]);
+        dup += sub.count;
+        const mesh = meshFromArrays(sub);
+        await mesh.initialized;
+        // per-window alpha = chunkAlpha * windowWeight, multiplied CPU-side
+        // into one dyno per window each frame (shader unchanged)
+        const alphaDyno = dyno.dynoFloat(0);
+        attachStream(mesh, sub, st.timeDyno, alphaDyno);
+        if (st.evicted) { mesh.dispose?.(); return; }
+        st.meshes.push({ mesh, alphaDyno, k, count: sub.count, added: false });
+      }
+      st.nWin = lists.length;
+      vc.dupFactor = Math.round((dup / Math.max(arrays.count, 1)) * 100) / 100;
       agg.buildMs += performance.now() - tb0;
-      if (st.evicted) { mesh.dispose?.(); return; }
-      st.meshes.push(mesh); // parked: scene.add happens in the attach pass
     }
     st.status = "ready";
     vc.builtChunks++;
@@ -223,7 +313,7 @@ function evictChunk(index) {
   const st = chunkStates.get(index);
   if (!st) return;
   st.evicted = true;
-  for (const m of st.meshes) { scene.remove(m); m.dispose?.(); }
+  for (const e of st.meshes) { scene.remove(e.mesh); e.mesh.dispose?.(); }
   chunkStates.delete(index);
 }
 // chunks that should be RESIDENT (built or building) at global frame g:
@@ -317,7 +407,7 @@ async function main() {
     const st0 = chunkStates.get(0);
     if (st0 && st0.meshes.length) {
       const box = new THREE.Box3();
-      for (const m of st0.meshes) box.union(m.getBoundingBox(true));
+      for (const e of st0.meshes) box.union(e.mesh.getBoundingBox(true));
       frameOn(box);
     }
   }
@@ -400,25 +490,35 @@ async function main() {
       while (chunkStates.size > RESIDENT_CAP && victims.length) evictChunk(victims.shift());
     }
     const wByIdx = new Map(crossfadeWeights(clip.chunks, g).map((w) => [w.chunk.index, w.weight]));
-    let attached = 0;
+    let attached = 0, attachedSplats = 0;
     for (const [idx, st] of chunkStates) {
       if (st.status !== "ready") continue;
       const w = wByIdx.get(idx) || 0;
-      const framesUntil = clip.chunks[idx].start_frame - g;
+      const chunk = clip.chunks[idx];
+      const framesUntil = chunk.start_frame - g;
       const imminent = w > 0 || (framesUntil > 0 && framesUntil <= ATTACH_AHEAD_FRAMES);
-      if (imminent && !st.attached) {
-        for (const m of st.meshes) scene.add(m);
-        st.attached = true;
-      } else if (!imminent && st.attached && w === 0) {
-        for (const m of st.meshes) scene.remove(m); // parked, not disposed
-        st.attached = false;
-      }
-      if (st.attached) attached++;
-      st.timeDyno.value = chunkLocalTime(clip.chunks[idx], g);
+      st.timeDyno.value = chunkLocalTime(chunk, g);
       st.chunkAlphaDyno.value = w;
-      for (const m of st.meshes) m.updateVersion?.();
+      // chunk-local frame for window selection; an imminent (pre-cover) chunk
+      // pre-attaches its FIRST window so the sorter digests it in advance
+      const localF = Math.min(Math.max(g - chunk.start_frame, 0), chunk.end_frame - chunk.start_frame - 1);
+      let chunkAttached = false;
+      for (const e of st.meshes) {
+        const ww = imminent ? (w > 0 ? windowWeight(e.k, localF, st.nWin ?? 1) : (e.k === 0 ? 1 : 0)) : 0;
+        const wantAttached = imminent && ww > 0;
+        if (wantAttached && !e.added) { scene.add(e.mesh); e.added = true; }
+        else if (!wantAttached && e.added) { scene.remove(e.mesh); e.added = false; }
+        if (e.added) {
+          attachedSplats += e.count ?? 0;
+          chunkAttached = true;
+          e.alphaDyno.value = w * ww; // pre-cover: w=0 -> parked invisible warm-up
+          e.mesh.updateVersion?.();
+        }
+      }
+      if (chunkAttached) attached++;
     }
     vc.attached = attached;
+    vc.attachedSplats = attachedSplats;
     vc.resident = chunkStates.size;
     vc.maxResident = Math.max(vc.maxResident, vc.resident);
     vc.cam = [+camera.position.x.toFixed(2), +camera.position.y.toFixed(2), +camera.position.z.toFixed(2)];
