@@ -1,0 +1,37 @@
+[
+  {
+    "id": "full",
+    "label": "Full model — delivery (27.01 dB)",
+    "clip": "packs/full_layers/scene.json",
+    "up": [0, -1, 0],
+    "note": "Layer-supervised delivery finetune, all 1.39M splats. The reference."
+  },
+  {
+    "id": "t30_layers",
+    "label": "30% tier — layer-supervised (26.86 dB)",
+    "clip": "packs/t30_layers/scene.json",
+    "up": [0, -1, 0],
+    "note": "Top-30% importance tier of the SAME model, trained to stand alone (5b). Loses 0.15 dB vs full."
+  },
+  {
+    "id": "t30_blind",
+    "label": "30% tier — blind prune (26.49 dB)",
+    "clip": "packs/t30_blind/scene.json",
+    "up": [0, -1, 0],
+    "note": "Same tier cut WITHOUT layer supervision. Loses 0.50 dB — the gap 5b recovers 70% of."
+  },
+  {
+    "id": "t30_ladder",
+    "label": "30% tier — production ladder cut",
+    "clip": "packs/full_layers/scene_t30.json",
+    "up": [0, -1, 0],
+    "note": "The shipping path: tiers.py --ladder re-ranks the packed delivery model and cuts t30 pack-side."
+  },
+  {
+    "id": "full_plain",
+    "label": "Full model — plain finetune (26.99 dB)",
+    "clip": "packs/full_plain/scene.json",
+    "up": [0, -1, 0],
+    "note": "Control: same finetune without layer supervision. Full-tier quality is unaffected by 5b."
+  }
+]
