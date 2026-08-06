@@ -1,0 +1,16 @@
+[
+  {
+    "id": "control",
+    "label": "Control — current default",
+    "clip": "packs/control/scene.json",
+    "up": [0, -1, 0],
+    "note": "pku_badminton person 1, seed 1234, alpha-fix ON (today's shipping recipe). Hair-band alpha 0.927 mean, 6 frames below the 0.85 bar. Orbit behind the head and watch the ponytail."
+  },
+  {
+    "id": "decay_soft",
+    "label": "Decay-soft — the Q1/Q2 win",
+    "clip": "packs/decay_soft/scene.json",
+    "up": [0, -1, 0],
+    "note": "Same fit, one YAML change: opacity-decay factors 0.996/0.998 → 0.999/0.9995. Hair-band alpha +0.013 (3 seeds, CI excludes 0), masked PSNR +0.20 dB, 5 frames below the bar. Camera pose is kept when you switch — the difference is the hair, not the view."
+  }
+]
