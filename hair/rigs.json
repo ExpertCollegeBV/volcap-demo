@@ -1,16 +1,37 @@
 [
   {
     "id": "control",
-    "label": "Control — current default",
+    "label": "Badminton — before (old default)",
     "clip": "packs/control/scene.json",
     "up": [0, -1, 0],
-    "note": "pku_badminton person 1, seed 1234, alpha-fix ON (today's shipping recipe). Hair-band alpha 0.927 mean, 6 frames below the 0.85 bar. Orbit behind the head and watch the ponytail."
+    "note": "The stress scene: hair visibly broken. Seed 1234, alpha-fix ON — the recipe that shipped until 2026-08-07. Hair-band alpha 0.927 mean, 6 frames below the 0.85 bar. Orbit behind the head and watch the ponytail."
   },
   {
     "id": "decay_soft",
-    "label": "Decay-soft — the Q1/Q2 win",
+    "label": "Badminton — after (ADR-021 default)",
     "clip": "packs/decay_soft/scene.json",
     "up": [0, -1, 0],
-    "note": "Same fit, one YAML change: opacity-decay factors 0.996/0.998 → 0.999/0.9995. Hair-band alpha +0.013 (3 seeds, CI excludes 0), masked PSNR +0.20 dB, 5 frames below the bar. Camera pose is kept when you switch — the difference is the hair, not the view."
+    "note": "Same fit, one config change: opacity-decay floor 0.996/0.998 → 0.999/0.9995. Hair +0.0133 across 3 seeds (CI excludes 0), masked PSNR +0.199 dB, 98.3% of frames improving. Camera pose is kept when you switch — the difference is the hair, not the view."
+  },
+  {
+    "id": "dance_control",
+    "label": "Dance — before (old default)",
+    "clip": "packs/dance_control/scene.json",
+    "up": [0, 0, 1],
+    "note": "The precision scene: hair already good (0.977 mean, zero failing frames). Seed 2025 control — the harder case for any hair lever, because there is little headroom left."
+  },
+  {
+    "id": "dance_default",
+    "label": "Dance — after (ADR-021 default)",
+    "clip": "packs/dance_default/scene.json",
+    "up": [0, 0, 1],
+    "note": "The adopted default on the precision scene: hair +0.0056 (3/3 seeds, 92.8% of frames), masked PSNR +0.054 dB. Real but ~3× smaller than badminton — the effect is proportional to the headroom available."
+  },
+  {
+    "id": "dance_default_plus",
+    "label": "Dance — default + split_preserve (opt-in)",
+    "clip": "packs/dance_default_plus/scene.json",
+    "up": [0, 0, 1],
+    "note": "The un-shelved lever stacked on the default: +0.131 dB masked PSNR vs control, hair statistically level with the default alone. Opt-in, not default — it is still mildly costly on the very worst frames."
   }
 ]
