@@ -3,21 +3,36 @@
     "id": "control",
     "label": "Control — no boost (current default)",
     "clip": "packs/control/scene.json",
-    "up": [0, -1, 0],
-    "note": "Seed 5678, ADR-021 decay default, no matte-boost. The confirmed baseline of the quality-track-3 pair. Look at the racket head, jersey edges, and hair silhouette, then switch arms — the camera pose is kept."
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "Seed 5678, ADR-021 decay default, no matte-boost. The confirmed baseline of the quality-track-3 pair. Look at the racket head, jersey edges, and hair silhouette, then switch arms — the camera pose is kept.",
+    "clip_lite": "packs/control/scene_lite.json"
   },
   {
     "id": "g15",
     "label": "Matte-boost γ 1.5 (the adoption candidate)",
     "clip": "packs/g15/scene.json",
-    "up": [0, -1, 0],
-    "note": "Same fit, one staging change: alpha^(1/1.5) inside the matte boundary band. Confirmed +0.47 dB masked PSNR over the control (2 fresh seed pairs, 100% of frames improving), hair +0.004, LPIPS neutral, halo zero."
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "Same fit, one staging change: alpha^(1/1.5) inside the matte boundary band. Confirmed +0.47 dB masked PSNR over the control (2 fresh seed pairs, 100% of frames improving), hair +0.004, LPIPS neutral, halo zero.",
+    "clip_lite": "packs/g15/scene_lite.json"
   },
   {
     "id": "g20",
     "label": "Matte-boost γ 2.0 (exploratory dose)",
     "clip": "packs/g20/scene.json",
-    "up": [0, -1, 0],
-    "note": "The stronger dose: +0.74 dB masked PSNR vs control with guardrails still clean — the dose curve is still rising. Exploratory only (adoption candidate stays γ1.5); a future escalation program decides this one."
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "The stronger dose: +0.74 dB masked PSNR vs control with guardrails still clean — the dose curve is still rising. Exploratory only (adoption candidate stays γ1.5); a future escalation program decides this one.",
+    "clip_lite": "packs/g20/scene_lite.json"
   }
 ]
