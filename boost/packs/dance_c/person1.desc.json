@@ -1,0 +1,145 @@
+{
+ "name": "person1",
+ "file": "person1.vpk2",
+ "format": "vpk2",
+ "count": 2593317,
+ "planes": [
+  {
+   "name": "pos_hi",
+   "codec": "webp-lossless",
+   "channels": 3,
+   "height": 1267,
+   "offset": 0,
+   "bytes": 1052
+  },
+  {
+   "name": "pos_lo",
+   "codec": "webp-lossless",
+   "channels": 3,
+   "height": 1267,
+   "offset": 1052,
+   "bytes": 2248862
+  },
+  {
+   "name": "t_hi",
+   "codec": "webp-lossless",
+   "channels": 1,
+   "height": 1267,
+   "offset": 2249914,
+   "bytes": 1864012
+  },
+  {
+   "name": "t_lo",
+   "codec": "webp-lossless",
+   "channels": 1,
+   "height": 1267,
+   "offset": 4113926,
+   "bytes": 2594590
+  },
+  {
+   "name": "rotation_hi",
+   "codec": "webp-lossless",
+   "channels": 3,
+   "height": 1267,
+   "offset": 6708516,
+   "bytes": 6366090
+  },
+  {
+   "name": "rotation_aux",
+   "codec": "webp-lossless",
+   "channels": 1,
+   "height": 1267,
+   "offset": 13074606,
+   "bytes": 1985172
+  },
+  {
+   "name": "rotation_r_hi",
+   "codec": "webp-lossless",
+   "channels": 3,
+   "height": 1267,
+   "offset": 15059778,
+   "bytes": 6377378
+  },
+  {
+   "name": "rotation_r_aux",
+   "codec": "webp-lossless",
+   "channels": 1,
+   "height": 1267,
+   "offset": 21437156,
+   "bytes": 1992674
+  },
+  {
+   "name": "scaling",
+   "codec": "webp-lossless",
+   "channels": 3,
+   "height": 1267,
+   "offset": 23429830,
+   "bytes": 6231008
+  },
+  {
+   "name": "scaling_t",
+   "codec": "webp-lossless",
+   "channels": 1,
+   "height": 1267,
+   "offset": 29660838,
+   "bytes": 2107832
+  },
+  {
+   "name": "opacity",
+   "codec": "webp-lossless",
+   "channels": 1,
+   "height": 1267,
+   "offset": 31768670,
+   "bytes": 2213922
+  },
+  {
+   "name": "sh0",
+   "codec": "webp-lossless",
+   "channels": 3,
+   "height": 1267,
+   "offset": 33982592,
+   "bytes": 5884848
+  }
+ ],
+ "source_planes": [
+  "xyz",
+  "t",
+  "rotation",
+  "rotation_r",
+  "scaling",
+  "scaling_t",
+  "opacity",
+  "sh0"
+ ],
+ "dequant": {
+  "xyz": {
+   "lo": [
+    -79.13887023925781,
+    -837.3738403320312,
+    -6.661749839782715
+   ],
+   "hi": [
+    0.47581157088279724,
+    2.8621304035186768,
+    199.13388061523438
+   ]
+  },
+  "t": {
+   "lo": -1.9152026176452637,
+   "hi": 11.456772804260254
+  },
+  "scaling": {
+   "lo": 3.271916526159657e-07,
+   "hi": 0.1016435954719809
+  },
+  "scaling_t": {
+   "lo": 0.0013393096160143614,
+   "hi": 3.604496955871582
+  }
+ },
+ "quat_error_bound": {
+  "p50": 0.00035019447871261107,
+  "p99": 0.004608960915755071,
+  "max": 6367250.632260223
+ }
+}

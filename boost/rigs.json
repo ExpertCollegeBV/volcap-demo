@@ -34,5 +34,29 @@
     ],
     "note": "The stronger dose: +0.74 dB masked PSNR vs control with guardrails still clean — the dose curve is still rising. Exploratory only (adoption candidate stays γ1.5); a future escalation program decides this one.",
     "clip_lite": "packs/g20/scene_lite.json"
+  },
+  {
+    "id": "dance_c",
+    "label": "Dance — control (no boost)",
+    "clip": "packs/dance_c/scene.json",
+    "clip_lite": "packs/dance_c/scene_lite.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "The precision scene: edges already good, the harder case for the boost. Session E control, seed 2025, ADR-021 decay default, no matte-boost."
+  },
+  {
+    "id": "dance_g15",
+    "label": "Dance — matte-boost γ 1.5",
+    "clip": "packs/dance_g15/scene.json",
+    "clip_lite": "packs/dance_g15/scene_lite.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "Gate E: +0.14 dB masked PSNR (CI[+0.10,+0.17], 87.5% of frames), hair neutral, halo zero — ~3.5× smaller than badminton, headroom-proportional. The difference is subtle by design; look at dress edges and hair wisps."
   }
 ]

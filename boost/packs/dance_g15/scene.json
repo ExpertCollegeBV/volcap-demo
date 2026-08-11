@@ -1,0 +1,161 @@
+{
+ "version": "vpk1",
+ "fps": 25.0,
+ "frame_count": 120,
+ "t_mapping": {
+  "span": 10.0,
+  "frame_count": 120
+ },
+ "packs": [
+  {
+   "name": "person1",
+   "file": "person1.vpk2",
+   "format": "vpk2",
+   "count": 2463207,
+   "planes": [
+    {
+     "name": "pos_hi",
+     "codec": "webp-lossless",
+     "channels": 3,
+     "height": 1203,
+     "offset": 0,
+     "bytes": 288592
+    },
+    {
+     "name": "pos_lo",
+     "codec": "webp-lossless",
+     "channels": 3,
+     "height": 1203,
+     "offset": 288592,
+     "bytes": 7060164
+    },
+    {
+     "name": "t_hi",
+     "codec": "webp-lossless",
+     "channels": 1,
+     "height": 1203,
+     "offset": 7348756,
+     "bytes": 1779212
+    },
+    {
+     "name": "t_lo",
+     "codec": "webp-lossless",
+     "channels": 1,
+     "height": 1203,
+     "offset": 9127968,
+     "bytes": 2464400
+    },
+    {
+     "name": "rotation_hi",
+     "codec": "webp-lossless",
+     "channels": 3,
+     "height": 1203,
+     "offset": 11592368,
+     "bytes": 6031636
+    },
+    {
+     "name": "rotation_aux",
+     "codec": "webp-lossless",
+     "channels": 1,
+     "height": 1203,
+     "offset": 17624004,
+     "bytes": 1884702
+    },
+    {
+     "name": "rotation_r_hi",
+     "codec": "webp-lossless",
+     "channels": 3,
+     "height": 1203,
+     "offset": 19508706,
+     "bytes": 6080912
+    },
+    {
+     "name": "rotation_r_aux",
+     "codec": "webp-lossless",
+     "channels": 1,
+     "height": 1203,
+     "offset": 25589618,
+     "bytes": 1907542
+    },
+    {
+     "name": "scaling",
+     "codec": "webp-lossless",
+     "channels": 3,
+     "height": 1203,
+     "offset": 27497160,
+     "bytes": 5973190
+    },
+    {
+     "name": "scaling_t",
+     "codec": "webp-lossless",
+     "channels": 1,
+     "height": 1203,
+     "offset": 33470350,
+     "bytes": 2033066
+    },
+    {
+     "name": "opacity",
+     "codec": "webp-lossless",
+     "channels": 1,
+     "height": 1203,
+     "offset": 35503416,
+     "bytes": 2083544
+    },
+    {
+     "name": "sh0",
+     "codec": "webp-lossless",
+     "channels": 3,
+     "height": 1203,
+     "offset": 37586960,
+     "bytes": 5590218
+    }
+   ],
+   "source_planes": [
+    "xyz",
+    "t",
+    "rotation",
+    "rotation_r",
+    "scaling",
+    "scaling_t",
+    "opacity",
+    "sh0"
+   ],
+   "dequant": {
+    "xyz": {
+     "lo": [
+      -2.5267131328582764,
+      -2.0184943675994873,
+      -5.167848587036133
+     ],
+     "hi": [
+      0.43711405992507935,
+      8.691303253173828,
+      -1.1998169422149658
+     ]
+    },
+    "t": {
+     "lo": -1.7553516626358032,
+     "hi": 11.093439102172852
+    },
+    "scaling": {
+     "lo": 5.659040004957205e-07,
+     "hi": 0.10174312338233817
+    },
+    "scaling_t": {
+     "lo": 0.0023738222662359476,
+     "hi": 3.405125379562378
+    }
+   },
+   "quat_error_bound": {
+    "p50": 0.00034270329084600025,
+    "p99": 0.004539663682978729,
+    "max": 0.1756180283286117
+   }
+  }
+ ],
+ "buckets": null,
+ "extra": {
+  "variant": "p8_fg_only",
+  "arm": "dance_g15"
+ }
+}
