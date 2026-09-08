@@ -1,0 +1,17 @@
+[
+  {
+    "id": "fgg_c12",
+    "label": "fg_gsplat — duo_walk, 12 cams, whole-scene 4D fit (ADR-024 Wave C)",
+    "clip": "packs/fgg_c12/scene.json",
+    "clip_lite": "packs/fgg_c12/scene_lite.json",
+    "note": "clean-room gsplat backend, ONE monolithic vpk1 layer (both walkers + floor) · holdout 29.62 dB / LPIPS 0.299 / flicker 0.92x · seed 1234, 30k steps, 3.0 M gaussians",
+    "frame": {
+      "center": [
+        0.0,
+        0.0,
+        0.9
+      ],
+      "radius": 1.6
+    }
+  }
+]
