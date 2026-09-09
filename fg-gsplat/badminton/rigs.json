@@ -37,5 +37,25 @@
       ],
       "radius": 0.6
     }
+  },
+  {
+    "id": "fgc_c12",
+    "label": "C — fg_gsplat + temporal pre-cull (ADR-024, 2026-09-09)",
+    "clip": "packs/fgc_c12/scene.json",
+    "clip_lite": "packs/fgc_c12/scene_lite.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "Arm B's exact recipe re-fit with the trainer's temporal pre-cull ON (trainer.temporal_cull default, the only change): c12-odd ring, 1080p, seed 1234, 30k, cap 2.5 M, alpha-fix ON · masked d0 21.53 dB (+0.078 vs B's 21.45) / d8 21.40 / flicker 0.775× · 0.083 s/step at the cap vs B's 0.70 (8.4×), live fraction 0.63 %. ONE vpk1 layer. Same camera as A and B when you toggle.",
+    "frame": {
+      "center": [
+        -0.76,
+        1.06,
+        0.34
+      ],
+      "radius": 0.6
+    }
   }
 ]
