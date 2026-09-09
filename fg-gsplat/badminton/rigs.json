@@ -1,0 +1,41 @@
+[
+  {
+    "id": "4c4d_prod",
+    "label": "A — 4C4D production recipe, 2026-09-08 RE-FIT (ADR-020 sweep2 /4 + alpha-fix)",
+    "clip": "packs/4c4d_prod/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "The production person recipe re-fit on 2026-09-08 (the July 24 sweep2 checkpoint was never banked): 4C4D, c12-odd ring, 1080p, seed 1234, 30k, thresholds /4 + cap 2.5 M, alpha-fix ON, no decay-soft / matte-boost (July 24 defaults). Frozen bar of the July 24 fit, for context: masked d0 21.56 dB / d8 21.01 / LPIPS 0.094 / flicker 0.943x — this re-fit's own numbers are in RESULTS.md. Same camera as B when you toggle.",
+    "frame": {
+      "center": [
+        -0.76,
+        1.06,
+        0.34
+      ],
+      "radius": 0.6
+    }
+  },
+  {
+    "id": "fgb_c12",
+    "label": "B — fg_gsplat clean-room port (ADR-024 Wave D cell 1, 2026-09-08)",
+    "clip": "packs/fgb_c12/scene.json",
+    "clip_lite": "packs/fgb_c12/scene_lite.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "Same operating point on the Apache-2.0 gsplat backend: c12-odd ring, 1080p, seed 1234, 30k, cap 2.5 M, alpha-fix ON · masked d0 21.45 dB / d8 21.34 / flicker 0.747x (−0.11 dB vs the frozen July 24 bar). ONE vpk1 layer, 2.19 M splats.",
+    "frame": {
+      "center": [
+        -0.76,
+        1.06,
+        0.34
+      ],
+      "radius": 0.6
+    }
+  }
+]
