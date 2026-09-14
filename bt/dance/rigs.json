@@ -1,0 +1,24 @@
+[
+  {
+    "id": "bt_ctrl_s1234",
+    "label": "A \u2014 control: today's 4C4D person defaults, 4D SH (sh_degree_t 2), seed 1234 (BT Session 2, dance, 2026-09-14)",
+    "clip": "packs/bt_ctrl_s1234/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "In-session control fitted 2026-09-14 on the SelfCap dance person (20 train cams, 4 holdouts), 30k steps, cap 2.5 M: alpha-fix \u03bb 0.1, opacity decay, matte-boost \u03b3 1.5, thresholds /4 \u2014 the production person recipe at today's adopted defaults with the temporal SH basis ON (4D SH degree 2). Masked d0 19.62 dB / d8 18.95 / masked LPIPS 0.1848 / flicker 0.882\u00d7 (cam_05); decoded export gap 1.05 dB (SH truncation 1.08). 2,629,855 splats trained, 2,588,368 in this ONE vpk1 layer (62.1 MB). Research page \u2014 one seed."
+  },
+  {
+    "id": "bt_e3h_s1234",
+    "label": "B \u2014 BT-E3-hard: temporal SH OFF (trainer.sh_degree_t 0), same recipe, seed 1234 \u2014 BAND on the dance confirm scene (one seed; S2 replication pending)",
+    "clip": "packs/bt_e3h_s1234/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "Arm A's exact recipe with ONE config key changed: trainer.sh_degree_t 0 (no 4D spherical-harmonics time basis; f_rest stays [N,32,3] padded, eval_shfs_4d off). Registered verdict (bt_e3h_verdict.json): BAND \u2014 decoded export gap 0.97 dB vs A's 1.05 (shrink +0.08 dB vs the 0.10 bar); tv_interior -2.4 % (CI95 -3.4..-1.4, bar \u221215 %); masked d0 19.80 dB = +0.18 dB paired vs A (CI95 +0.16..+0.21, 61 % of the 480 holdout images improve), d8 19.04 (+0.09), masked LPIPS 0.1814 (-0.0034), halo/haze flat, flicker 0.876\u00d7, splats \u00d71.0054. 2,644,125 splats trained, 2,598,206 in this ONE vpk1 layer (62.4 MB). Same camera as A when you toggle. Research page \u2014 one seed per scene; adoption needs the second-seed replication."
+  }
+]
