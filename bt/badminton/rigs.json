@@ -1,0 +1,40 @@
+[
+  {
+    "id": "bt_ctrl_s1234",
+    "label": "A — control: today's 4C4D person defaults, 4D SH (sh_degree_t 2), seed 1234 (BT Session 1, 2026-09-14)",
+    "clip": "packs/bt_ctrl_s1234/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "In-session control fitted 2026-09-14 on the pku_badminton c12-odd ring (12 train cams, 4 holdouts), 1080p, 30k steps, cap 2.5 M: alpha-fix λ 0.1, opacity decay, matte-boost γ 1.5, thresholds /4 — the production person recipe at today's adopted defaults with the temporal SH basis ON (4D SH degree 2). Masked d0 21.77 dB / d8 20.83 / masked LPIPS 0.0820 / flicker 0.813× (cam_06); decoded export gap 1.10 dB (SH truncation 1.12). 2 506 768 splats trained, 2 487 084 in this ONE vpk1 layer (59.7 MB). Research page — one seed.",
+    "frame": {
+      "center": [
+        -0.76,
+        1.06,
+        0.34
+      ],
+      "radius": 0.6
+    }
+  },
+  {
+    "id": "bt_e3h_s1234",
+    "label": "B — BT-E3-hard: temporal SH OFF (trainer.sh_degree_t 0), same recipe, seed 1234 — PASS on the export-gap primary (one seed, S2 replication pending)",
+    "clip": "packs/bt_e3h_s1234/scene.json",
+    "up": [
+      0,
+      -1,
+      0
+    ],
+    "note": "Arm A's exact recipe with ONE config key changed: trainer.sh_degree_t 0 (no 4D spherical-harmonics time basis; f_rest stays [N,32,3] padded, eval_shfs_4d off). Registered verdict (bt_e3h_verdict.json): PASS — decoded export gap 0.91 dB vs A's 1.10 (shrink 0.19 dB ≥ the 0.10 bar); tv_interior −4.6 % (CI95 −5.4..−3.8, short of the 15 % bar); guards clean: masked d0 21.99 dB = +0.22 dB paired vs A (CI95 +0.18..+0.27, 79 % of the 480 holdout images improve), d8 21.09 (+0.27), masked LPIPS 0.0791 (−0.003), halo/haze/hair flat, flicker 0.806×, splats ×1.009. 2 529 398 splats trained, 2 450 215 in this ONE vpk1 layer (58.8 MB). Same camera as A when you toggle. Research page — one seed; adoption needs the second-seed replication.",
+    "frame": {
+      "center": [
+        -0.76,
+        1.06,
+        0.34
+      ],
+      "radius": 0.6
+    }
+  }
+]
